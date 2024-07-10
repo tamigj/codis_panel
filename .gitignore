@@ -4,10 +4,10 @@ plink.GRCh37.map/
 tmp/
 output/
 software/
-**/logs/  # Ignore all subdirectories named logs/
+**/logs/
 
 # Files to ignore
-*.log     # Ignore all files ending with .log
-*.err     # Ignore all files ending with .err
-submit_*.sh  # Ignore all files starting with submit_ and ending with .sh
+*.log
+*.err
+submit_*.sh
 
