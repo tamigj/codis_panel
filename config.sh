@@ -3,6 +3,10 @@
 # CODIS STRs
 export CODIS_STRS="CSF1PO D10S1248 D12S391 D13S317 D18S51 D19S433 D1S1656 D22S1045 D2S1338 D2S441 D3S1358 D5S818 D7S820 D8S1179 FGA TH01 TPOX vWA"
 
+# Panel sizes (number of SNPs per STR)
+export ALL_PANEL_SIZES="10 25 50 75 100 125 250 500 1000 5000"
+export SELECTED_PANEL_SIZES="25 50 100"
+
 # Superpopulations
 export SUPERPOPULATIONS="AFR AMR EAS EUR SAS"
 
@@ -21,7 +25,9 @@ export DIR_DATA_SNP_LISTS="${DIR_CODIS}/data/snp_lists"
 export DIR_PLINK_MAPS="${DIR_CODIS}/plink.GRCh37.map/"
 
 # Code directory
-export DIR_CODE="${DIR_CODIS}/code/"
+export DIR_CODE="${DIR_CODIS}/code"
+export DIR_CODE_BASELINE="${DIR_CODIS}/code/baseline"
+export DIR_CODE_VARIANT_CHARACTERISTICS="${DIR_CODIS}/code/variant_characterstics"
 
 # Analyses directories
 export DIR_ANALYSES="${DIR_CODIS}/analyses/"
@@ -29,8 +35,8 @@ export DIR_ANALYSES_VARIANT_PROCESSING="${DIR_CODIS}/analyses/variant_processing
 
 # Software directories
 export DIR_SOFTWARE="${DIR_CODIS}/software"
-export DIR_VCFTOOLS="${DIR_CODIS}/software/vcftools_0.1.13/bin/"
-export DIR_PLINK="${DIR_CODIS}/software/plink/"
+export DIR_VCFTOOLS="${DIR_CODIS}/software/vcftools_0.1.13/bin"
+export DIR_PLINK="${DIR_CODIS}/software/plink"
 
 # Tmp directory
 export DIR_TMP="${DIR_CODIS}/tmp"
@@ -44,4 +50,4 @@ export DIR_OUTPUT_RM_SUMMARIES="${DIR_CODIS}/output/rm_summaries"
 # Record matching variables
 export CODIS_STRS_RM="CSF1PO,D10S1248,D12S391,D13S317,D18S51,D19S433,D1S1656,D22S1045,D2S1338,D2S441,D3S1358,D5S818,D7S820,D8S1179,FGA,TH01,TPOX,vWA"
 export BEAGLE_JAR="${DIR_CODIS}/software/beagle.22Jul22.46e.jar"
-export VCF_EXE="${DIR_CODIS}/software/vcftools_0.1.13/bin/vcf"
+export VCF_EXE="${DIR_CODIS}/software/vcftools_0.1.13/bin/vcftools"
