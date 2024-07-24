@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SECONDS=0
+
 experiment=$1
 n_snps=$2
 n_snp_rep=$3
@@ -9,6 +11,8 @@ fraction=$5
 # Construct variables
 snplist_id=${experiment}_${n_snps}_${n_snp_rep}
 n_run=${snplist_id}_${n_ind_rep}
+
+source /scratch/groups/noahr/tami/codis_panel/config.sh
 
 # Update directories
 DIR_DATA_PARTITIONS_FRACTIONS="$DIR_DATA_PARTITIONS/$fraction"
@@ -37,3 +41,10 @@ Rscript $DIR_CODE/C_compute_match_accuracies.R $CODIS_STRS_RM \
                                                $VCF_EXE \
                                                $DIR_DATA_NRUN \
                                                $DIR_OUTPUT_NRUN
+
+# Calculate hours, minutes, and seconds
+hours=$((SECONDS / 3600))
+minutes=$(( (SECONDS % 3600) / 60 ))
+seconds=$((SECONDS % 60))
+
+echo "Elapsed time: ${hours}h ${minutes}m ${seconds}s"

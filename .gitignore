@@ -5,6 +5,9 @@ tmp/
 output/
 software/
 **/logs/
+**/logs_0.25/
+**/logs_0.5/
+**/logs_0.75/
 
 # Files to ignore
 *.log

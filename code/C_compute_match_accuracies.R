@@ -1,5 +1,4 @@
 rm(list=ls())
-start_time <- Sys.time()
 
 #-----------------#
 # LOAD LIBRARIES  #
@@ -25,12 +24,6 @@ if (length(args) == 0) {
 
   dir_data_n_run = as.character(args[4])
   base.dir = as.character(args[5])
-
-  # markers='CSF1PO,D10S1248,D12S391,D13S317,D18S51,D19S433,D1S1656,D22S1045,D2S1338'
-  # base.dir='/home/users/tami/codis_snps/output/run_0.075/'
-  # bgl.jar='/home/users/tami/codis_snps/software/beagle.22Jul22.46e.jar'
-  # vcf.exe='/home/users/tami/codis_snps/software/vcftools_0.1.13/bin/vcftools'
-  # dir_data_n_run='/home/users/tami/codis_snps/data/run_0.075/'
 
 }
 
@@ -79,6 +72,7 @@ mat <- Reduce('+', llr.single.irt)
 
 print("I've created the matrix.")
 
+
 #-----------------------#
 # MAKE A FIGURE OF MSM  #
 #-----------------------#
@@ -111,9 +105,3 @@ write.csv(match.acc, str_interp("${base.dir}/match_accuracies.csv"), row.names=F
 
 print(str_interp("Saved the match score matrix at ${base.dir}/match_score_matrix.csv."))
 print(str_interp("Saved the match accuracies at ${base.dir}/match_accuracies.csv"))
-
-# Print running time
-end_time <- Sys.time()
-time = end_time - start_time
-
-print(str_interp("It took ${time} sec."))

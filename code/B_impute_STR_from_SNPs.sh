@@ -6,7 +6,7 @@ str=$3
 
 source /scratch/groups/noahr/tami/codis_panel/config.sh
 
-mkdir $DIR_OUTPUT_NRUN
+mkdir -p $DIR_OUTPUT_NRUN
 
 chr=$(grep -nF ${str} \
     $DIR_DATA_NRUN/reference/${str}.recode.vcf | cut -f1 | awk -F ":" '{print $2}')
@@ -23,7 +23,7 @@ java -Xmx1g -jar $DIR_SOFTWARE/beagle.22Jul22.46e.jar \
     ap=true \
     gp=true \
     impute=true \
-    nthreads=10
+    nthreads=1
 
 gunzip $DIR_OUTPUT_NRUN/${str}.vcf.gz
 
@@ -31,7 +31,7 @@ gunzip $DIR_OUTPUT_NRUN/${str}.vcf.gz
     --vcf $DIR_OUTPUT_NRUN/${str}.vcf \
     --snp ${str} \
     --extract-FORMAT-info GT \
-    --out $DIR_OUTPUT_NRUN/${str}
+    --out $DIR_OUTPUT_NRUN/${str} &&
 
 "$DIR_VCFTOOLS/vcftools" \
     --vcf $DIR_OUTPUT_NRUN/${str}.vcf \
