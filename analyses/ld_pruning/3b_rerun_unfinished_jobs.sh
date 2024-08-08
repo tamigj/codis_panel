@@ -20,7 +20,7 @@ n_ind_reps=10
 fraction=0.5
 filters=$R2_THRESHOLDS
 
-time_for_job="10:00:00"
+time_for_job="15:00:00"
 
 # Directory paths
 submit_dir="submit_$fraction"

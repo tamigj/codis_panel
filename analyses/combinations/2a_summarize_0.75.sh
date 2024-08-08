@@ -5,18 +5,18 @@ source /scratch/groups/noahr/tami/codis_panel/config.sh
 #---------------------------#
 # EDIT FOR EACH EXPERIMENT  #
 #---------------------------#
-experiment='pruning'
-filters=$R2_THRESHOLDS_CSV
+experiment='combinations'
+combos_file="$DIR_OUTPUT_SUMSTATS/feasible_combinations.csv"
 n_snps_per_str=$SELECTED_PANEL_SIZES_CSV
 n_snp_reps=10
 n_ind_reps=10
-fraction=0.5
+fraction=0.75
 
 ###############################################################
 ml R/4.2
 
-Rscript $DIR_CODE/summarize_results_variant_characteristics.R \
+Rscript $DIR_CODE/summarize_results_combinations.R \
     $CODIS_STRS_RM \
-    $experiment $filters \
+    $experiment $combos_file \
     $n_snps_per_str $n_snp_reps $n_ind_reps $fraction \
     $DIR_DATA_SNP_LISTS $DIR_OUTPUT_EXPERIMENTS $DIR_OUTPUT_RM_SUMMARIES

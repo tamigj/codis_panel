@@ -12,7 +12,7 @@ n_ind_reps=10
 fraction=0.25
 filters=$DISTANCE_FILTERS
 
-time_for_job="25:00:00"
+time_for_job="30:00:00"
 
 # Directory paths
 submit_dir="submit_$fraction"

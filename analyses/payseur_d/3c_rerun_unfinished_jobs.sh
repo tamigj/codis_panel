@@ -12,11 +12,12 @@ n_ind_reps=10
 fraction=0.25
 filters=$PAYSEUR_D_FILTERS
 
-time_for_job="25:00:00"
+time_for_job="30:00:00"
 
 # Directory paths
 submit_dir="submit_$fraction"
 out_dir="$DIR_OUTPUT_EXPERIMENTS/$fraction"
+data_dir="$DIR_DATA_EXPERIMENTS/$fraction"
 
 # Main loop
 for filter in $filters; do
@@ -30,6 +31,8 @@ for filter in $filters; do
                 if [[ ! -f "$out_dir/run_$n_run/match_accuracies.csv" ]]; then
                     submit_script="$submit_dir/submit_${n_run}.sh"
                     rm -f $submit_script
+			rm -r -f "$out_dir/run_$n_run"
+			rm -r -f "$data_dir/run_$n_run"
 
                     cat <<EOT > "$submit_script"
 #!/bin/bash

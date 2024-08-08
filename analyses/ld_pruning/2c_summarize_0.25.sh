@@ -6,11 +6,11 @@ source /scratch/groups/noahr/tami/codis_panel/config.sh
 # EDIT FOR EACH EXPERIMENT  #
 #---------------------------#
 experiment='pruning'
-filters=$R2_THRESHOLDS
+filters=$R2_THRESHOLDS_CSV
 n_snps_per_str=$SELECTED_PANEL_SIZES_CSV
 n_snp_reps=10
 n_ind_reps=10
-fraction=0.75
+fraction=0.25
 
 ###############################################################
 ml R/4.2
