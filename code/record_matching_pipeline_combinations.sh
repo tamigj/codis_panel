@@ -9,6 +9,8 @@ SECONDS=0
 # Construct variables
 n_run=${snplist_id}_${n_ind_rep}
 
+source /scratch/groups/noahr/tami/codis_panel/config.sh
+
 # Update directories
 DIR_DATA_PARTITIONS_FRACTIONS="$DIR_DATA_PARTITIONS/$fraction"
 DIR_DATA_NRUN="$DIR_DATA_EXPERIMENTS/$fraction/run_$n_run"
