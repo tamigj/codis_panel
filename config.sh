@@ -47,6 +47,7 @@ export DIR_CODE_VARIANT_CHARACTERISTICS="${DIR_CODIS}/code/variant_characterstic
 # Analyses directories
 export DIR_ANALYSES="${DIR_CODIS}/analyses/"
 export DIR_ANALYSES_VARIANT_PROCESSING="${DIR_CODIS}/analyses/variant_processing"
+export DIR_ANALYSES_PAYSEUR="${DIR_CODIS}/analyses/payseur_d"
 
 # Software directories
 export DIR_SOFTWARE="${DIR_CODIS}/software"
@@ -61,6 +62,7 @@ export DIR_OUTPUT="${DIR_CODIS}/output"
 export DIR_OUTPUT_SUMSTATS="${DIR_CODIS}/output/sumstats"
 export DIR_OUTPUT_EXPERIMENTS="${DIR_CODIS}/output/experiments"
 export DIR_OUTPUT_RM_SUMMARIES="${DIR_CODIS}/output/rm_summaries"
+export DIR_OUTPUT_PAYSEUR_LD="${DIR_CODIS}/output/payseur_ld"
 
 # Record matching variables
 export CODIS_STRS_RM="CSF1PO,D10S1248,D12S391,D13S317,D18S51,D19S433,D1S1656,D22S1045,D2S1338,D2S441,D3S1358,D5S818,D7S820,D8S1179,FGA,TH01,TPOX,vWA"

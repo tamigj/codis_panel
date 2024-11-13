@@ -48,6 +48,10 @@ tail -n +2 "$combos_file" | while IFS=, read -r maf popmaf distance d r2; do
           submit_script="$submit_dir/submit_${n_run}.sh"
           rm -f "$submit_script"
 
+          # 1. Prepare SNP list
+          Rscript make_snplist_combos.R ${experiment} ${n_snps} ${n_snp_rep} \
+                                        ${maf} ${popmaf} ${distance} ${d} ${r2}
+
           cat <<EOT > "$submit_script"
 #!/bin/bash
 #SBATCH --job-name=rm_${n_run}
