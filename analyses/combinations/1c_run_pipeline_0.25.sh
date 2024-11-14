@@ -20,8 +20,8 @@ n_ind_reps=10
 fraction=0.25
 
 # Goes up to 32. Submit two at a time (800 jobs); Rerun 2-5
-start_line=13
-end_line=13	
+start_line=12
+end_line=12	
 ###############################################################
 
 ml R/4.2
