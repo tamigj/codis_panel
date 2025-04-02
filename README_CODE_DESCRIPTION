@@ -1,0 +1,109 @@
+--------------------------------------------------------------------------------------------
+If you are looking to replicate all analyses from our paper:
+
+  (1) Download all raw data and software from XXX
+  (2) Clone out github directory
+  (3) Run all analyses using the guide below
+  (4) Run code to generate figures and tables
+
+--------------------------------------------------------------------------------------------
+(1)
+
+RAW DATA AND SOFTWARE (provided w/ paper):
+
+  /data/raw/
+    *_halfwindow500000WithSTR.vcf     18 CODIS STR VCF files from 1000 Genome Project
+    *_ids_plink.txt                   5 files with 1000 Genome Project IDs belonging
+                                      to each superpopulation
+
+  /data/partitions/0.75/
+    ref_ids_[1-100].csv               all 100 training set partitions
+    test_ids_[1-100].csv              all 100 test set partitions
+
+  /plink.GRCh37.map/
+    plink.chr[1-22,X].GRCh37.map      MAP files used by BEAGLE in imputation
+
+  /software/
+    vcftools_0.1.13/                  vcftools, for various purposes
+    RecordMatching/                   pipeline for record matching
+    plink/                            plink, for various purposes
+    beagle.22Jul22.46e.jar/           BEAGLE, for imputation
+
+* If you have all of this data and software in your directory, and pull the code
+  and analyses from GitHub, you can replicate all analyses reported in our paper.
+
+--------------------------------------------------------------------------------------------
+(2)
+
+GIT DIRECTORIES:
+  /code           includes all scripts referenced in /analyses
+  /analyses       includes all analyses in the paper, organized in categories
+
+CONFIGURATION FILES:
+  config.sh           lists all variables sourced across the codebase
+  config_packages.R   install all required R packages
+
+CODE:
+  /code/
+
+    A_prepare_files.sh
+    B_impute_STR_from_SNPs.sh
+    C_compute_match_accuracies.R
+
+    record_matching_pipeline.sh
+    record_matching_pipeline_variant_characteristics.sh
+    record_matching_pipeline_combinations.sh
+
+    cleanup_intermediate_files.sh
+
+    summarize_results.R
+    summarize_results_variant_characteristics.R
+    summarize_results_combinations.R
+
+    ---------------------------------------------------------------------------------------
+    | - The first three scripts [A-C] code each step of the record matching (RM) pipeline.|
+    |                                                                                     |
+    | - The record_matching_pipeline* scripts call scripts [A-C] and include              |
+    |   the full pipeline for three different types of experiments:                       |
+    |   random, variant characteristics, and combinations, all described in the paper.    |
+    |       - cleanup_intermediate_files.sh helps remove intermediate files               |
+    |         and clear up memory.                                                        |
+    |                                                                                     |
+    | - The summarize_results* scripts use the outputs from the record_matching_pipeline* |
+    |   scripts to summarize the results. The outputs from these scripts were used for    |
+    |   producing all figures and tables in the paper.                                    |
+    ---------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------
+(3)
+
+ANALYSES:
+  /analyses/
+    /data_processing        process VCF files to remove non-CODIS STRs and
+                            generate partitions; see README for details
+
+    /variant_processing     process VCF files to generate all relevant variant
+                            characteristics (e.g. MAF, pop-MAF, distance, D'avg);
+                            see README for details
+
+    /baseline_all_snps      run RM for all SNPs & summarize results
+
+    /baseline_n_snps        run RM for different SNP panel sizes & summarize results
+
+    /maf                    run RM for SNP panels with MAF filter & summarize results
+    /popmaf                 run RM for SNP panels with pop-MAF filter & summarize results
+    /distance               run RM for SNP panels with distance filter & summarize results
+    /payseur_d              run RM for SNP panels with D'avg filter & summarize results
+
+    ---------------------------------------------------------------------------------------
+    | The code within each analysis category (baseline_all_snps to payseur_d)             |
+    | is structured similarly (example for distance):                                     |
+    |                                                                                     |
+    |   - make_snplist_distance.R         make SNP lists after applying distance filters  |
+    |   - 1a_run_pipeline_0.75.sh         run RM pipeline with 75% in training set        |
+    |   - 2a_summarize_0.75.sh            summarize RM results                            |
+    |   - 3a_rerun_unfinished_jobs.sh     check which jobs did not complete, and rerun    |
+    ---------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------
+(4)

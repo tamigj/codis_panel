@@ -3,7 +3,7 @@
 #-------------------------------#
 
 This code processes the raw phased 1KPG VCF data (Saini et al 2018) in
-order to produce, for every CODIS STR, a file od surrounding SNPs with all
+order to produce, for every CODIS STR, a file of surrounding SNPs with all
 relevant variant characteristics (e.g. MAF, pop-MAF, distance, payseur D)
 for downstream analyses.
 
@@ -13,4 +13,4 @@ input:    /data/processed/
             [CODIS_STR]_withSTR_GT.vcf
 
 outputs:  /data/processed/
-            [CODIS_STR]snps.csv 
+            [CODIS_STR]snps.csv
