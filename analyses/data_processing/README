@@ -6,23 +6,16 @@ This code processes the raw phased 1KPG VCF data (Saini et al 2018) in order to:
   - remove non-CODIS STRs and produce genotype VCF files with
     CODIS STR and SNPs for downstream analysis
   - produce partitions of 1KGP individuals for reference and test datasets
-    in 100 replicates, for 3 different fractions of reference individuals
-    (0.25, 0.5, 0.75), for downstream analyses
+    in 100 replicates, with 75% reference individuals, for downstream analyses
 
 ----------------------------------------------------
 
-input:    /data/raw/
+inputs:   /data/raw/
             [CODIS_STR]_halfwindow500000WithSTR.vcf
 
 outputs:  /data/processed/
             [CODIS_STR]_withSTR_GT.vcf
 
           /data/partitions/
-            0.25/ref_ids_[1-100].csv
-            /0.25/_ids_[1-100].csv
-
-            /0.5/ref_ids_[1-100].csv
-            /0.5/_ids_[1-100].csv
-
             /0.75/ref_ids_[1-100].csv
-            /0.75/_ids_[1-100].csv
+            /0.75/test_ids_[1-100].csv
