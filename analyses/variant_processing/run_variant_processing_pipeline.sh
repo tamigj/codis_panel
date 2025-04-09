@@ -19,7 +19,7 @@ for codis_str in $CODIS_STRS; do
 #!/bin/bash
 #SBATCH --job-name=variant_processing_${codis_str}
 #SBATCH --time=15:00:00
-#SBATCH --mem=1G
+#SBATCH --mem=10G
 #SBATCH --output=variant_processing_${codis_str}.log
 #SBATCH --error=variant_processing_${codis_str}.err
 #SBATCH -p hns,owners

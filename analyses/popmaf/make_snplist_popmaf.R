@@ -44,16 +44,32 @@ for (str in codis_strs){
   snp_df = read.csv(snp_file_path)
 
   # Test
-  test_snps_df = snp_df %>%
-    filter(SNP != str) %>%
-    filter(AFR_MAF >= popmaf_filter,
-           AMR_MAF >= popmaf_filter,
-           EAS_MAF >= popmaf_filter,
-           EUR_MAF >= popmaf_filter,
-           SAS_MAF >= popmaf_filter) %>%
-    sample_n(n_snps) %>%
-    select(SNP)
+  if (popmaf_filter != 0){
 
+    test_snps_df = snp_df %>%
+      filter(SNP != str) %>%
+      filter(AFR_MAF >= popmaf_filter,
+             AMR_MAF >= popmaf_filter,
+             EAS_MAF >= popmaf_filter,
+             EUR_MAF >= popmaf_filter,
+             SAS_MAF >= popmaf_filter) %>%
+      sample_n(n_snps) %>%
+      select(SNP)
+
+  } else if (popmaf_filter == 0){
+
+    test_snps_df = snp_df %>%
+      filter(SNP != str) %>%
+      filter(AFR_MAF > popmaf_filter,
+             AMR_MAF > popmaf_filter,
+             EAS_MAF > popmaf_filter,
+             EUR_MAF > popmaf_filter,
+             SAS_MAF > popmaf_filter) %>%
+      sample_n(n_snps) %>%
+      select(SNP)
+
+  }
+  
   # Reference
   ref_snps_df = rbind(test_snps_df, str)
 
