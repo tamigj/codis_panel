@@ -8,6 +8,7 @@ software/
 **/logs_0.25/
 **/logs_0.5/
 **/logs_0.75/
+**/archive/
 
 # Files to ignore
 *.log
