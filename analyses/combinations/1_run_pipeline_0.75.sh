@@ -19,9 +19,8 @@ n_snp_reps=10
 n_ind_reps=10
 fraction=0.75
 
-# Goes up to 33. Submit one at a time (800 jobs) - do 27 will be half done, 28, 29 is under question and so is 30 // repeat at some point
 start_line=2
-end_line=32	
+end_line=3
 ###############################################################
 
 ml R/4.2
@@ -29,12 +28,16 @@ ml R/4.2
 mkdir -p logs_${fraction}
 mkdir -p submit_${fraction}
 
-combos_file="$DIR_OUTPUT_SUMSTATS/feasible_combinations_2_100.csv"
+combos_file="$DIR_OUTPUT_SUMSTATS/feasible_combinations_100_pop_maf.csv"
+
+if [ ! -f "$combos_file" ]; then
+    Rscript identify_feasible_combos.R
+fi
 
 # Read the file line by line
-while IFS=, read -r maf popmaf distance d r2; do
+while IFS=, read -r maf popmaf distance d; do
 
-  # Increment line counter
+    # Increment line counter
     line_counter=$((line_counter + 1))
 
     # Process only the first three lines
@@ -47,12 +50,12 @@ while IFS=, read -r maf popmaf distance d r2; do
       do
 
         # Make string for combo and snplist_id
-        combo=${maf}_${popmaf}_${distance}_${d}_${r2}
+        combo=${maf}_${popmaf}_${distance}_${d}
         snplist_id=${experiment}_${combo}_${n_snps}_${n_snp_rep}
 
         # 1. Prepare SNP list
         Rscript make_snplist_combos.R ${experiment} ${n_snps} ${n_snp_rep} \
-                                      ${maf} ${popmaf} ${distance} ${d} ${r2}
+                                      ${maf} ${popmaf} ${distance} ${d}
 
         # 2. Submit the record matching pipeline
         for n_ind_rep in $(seq 1 $n_ind_reps);

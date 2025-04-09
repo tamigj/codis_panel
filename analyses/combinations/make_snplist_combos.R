@@ -21,11 +21,10 @@ if (length(args) == 0) {
   popmaf = as.numeric(args[5])
   distance = as.numeric(args[6])
   payseur_d = as.numeric(args[7])
-  ld_r2 = as.numeric(args[8])
 
 }
 
-combination = str_interp("${maf}_${popmaf}_${distance}_${payseur_d}_${ld_r2}")
+combination = str_interp("${maf}_${popmaf}_${distance}_${payseur_d}")
 snplist_id = str_interp("${experiment}_${combination}_${n_snps}_${n_snp_rep}")
 
 set.seed(n_snp_rep)
@@ -47,20 +46,29 @@ filter_maf = function(df, maf=NA){
 
   if (is.na(maf) == FALSE){
     df = df %>%
-      filter(MAF > maf)
+      filter(MAF >= maf)
   }
 
-return(df)
+  return(df)
 
 }
 
 filter_popmaf = function(df, popmaf=NA){
 
   if (is.na(popmaf) == FALSE){
-    df = df %>%
-      filter(AFR_MAF > popmaf, AMR_MAF > popmaf,
-             EAS_MAF > popmaf, EUR_MAF > popmaf,
-             SAS_MAF > popmaf)
+
+    if (as.numeric(popmaf) == 0){
+      df = df %>%
+        filter(AFR_MAF > popmaf, AMR_MAF > popmaf,
+               EAS_MAF > popmaf, EUR_MAF > popmaf,
+               SAS_MAF > popmaf)
+    } else {
+      df = df %>%
+        filter(AFR_MAF >= popmaf, AMR_MAF >= popmaf,
+               EAS_MAF >= popmaf, EUR_MAF >= popmaf,
+               SAS_MAF >= popmaf)
+    }
+
   }
 
   return(df)
@@ -71,7 +79,7 @@ filter_distance = function(df, dist=NA){
 
   if (is.na(dist) == FALSE){
     df = df %>%
-      filter(abs(dist_to_STR) < dist)
+      filter(abs(dist_to_STR) <= dist)
   }
 
   return(df)
@@ -82,23 +90,7 @@ filter_payseur_d = function(df, payseur_d=NA){
 
   if (is.na(payseur_d) == FALSE){
     df = df %>%
-      filter(Payseur_d > payseur_d)
-  }
-
-  return(df)
-
-}
-
-filter_ld_pruning = function(df, str, r2=NA){
-
-  if (is.na(r2) == FALSE){
-  ld_file_path = str_interp("${dir_tmp}/${str}_r2_${r2}.prune.in")
-  ld_df = read.csv(ld_file_path, header=FALSE)
-  names(ld_df) = 'snp_id'
-
-  df = df %>%
-    filter(SNP %in% ld_df$snp_id)
-
+      filter(Payseur_d >= payseur_d)
   }
 
   return(df)
@@ -121,7 +113,6 @@ for (str in codis_strs){
   df = filter_popmaf(df, popmaf)
   df = filter_distance(df, distance)
   df = filter_payseur_d(df, payseur_d)
-  df = filter_ld_pruning(df, str, ld_r2)
 
   # Test
   test_snps_df = df %>%
