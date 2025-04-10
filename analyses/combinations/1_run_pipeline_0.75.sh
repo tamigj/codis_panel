@@ -19,8 +19,8 @@ n_snp_reps=10
 n_ind_reps=10
 fraction=0.75
 
-start_line=2
-end_line=3
+start_line=4
+end_line=4
 ###############################################################
 
 ml R/4.2

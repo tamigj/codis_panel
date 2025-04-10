@@ -13,5 +13,6 @@ software/
 # Files to ignore
 *.log
 *.err
+*.pdf
 submit_*.sh
 
