@@ -6,7 +6,8 @@ source /scratch/groups/noahr/tami/codis_panel/config.sh
 # EDIT FOR EACH EXPERIMENT  #
 #---------------------------#
 experiment='combinations'
-combos_file="$DIR_OUTPUT_SUMSTATS/feasible_combinations_2_100.csv"
+#combos_file="$DIR_OUTPUT_SUMSTATS/feasible_combinations_2_100.csv"
+combos_file="$DIR_OUTPUT_SUMSTATS/feasible_combinations_100_pop_maf.csv"
 n_snps_per_str=$ALL_PANEL_SIZES_UP_TO_100_CSV
 n_snp_reps=10
 n_ind_reps=10

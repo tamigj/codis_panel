@@ -56,9 +56,8 @@ for (n_snps in n_snps_list){
       popmaf =  combos_file_df[i,'POP_MAF']
       distance =  combos_file_df[i,'Distance']
       d =  combos_file_df[i,'Payseur_d']
-      r2 =  combos_file_df[i,'R2']
 
-      combo = str_interp("${maf}_${popmaf}_${distance}_${d}_${r2}")
+      combo = str_interp("${maf}_${popmaf}_${distance}_${d}")
 
       # Count total number of SNPs ---------------------------
       snplist_id = str_interp("${experiment}_${combo}_${n_snps}_${n_snp_rep}")
