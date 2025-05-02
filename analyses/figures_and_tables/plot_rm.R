@@ -839,7 +839,7 @@ plot_rm_combos_supplement = function(df_sum){
     geom_errorbar(data = df_combo, 
                   aes(x = as.numeric(n_total_snps), 
                       ymin = min, ymax = max,
-                      color = distance), width=0.1) +
+                      color = distance), width=50) +
     
     # Add white-filled points for "Worse" data
     geom_point(data = df_combo_worse,
@@ -911,7 +911,7 @@ plot_payseur_ld = function(df){
           strip.text = element_text(size=12, color='white'),
           strip.background = element_rect(fill = "black", color = "black")) +
     xlab(expression(paste("Minimum ", D*"'"[avg]))) +
-    ylab(expression(paste("Mean R"^2, " between SNPs within a panel")))
+    ylab(expression(paste("Mean r"^2, " between SNPs across 10 SNP sets")))
   
   return(p)
   
