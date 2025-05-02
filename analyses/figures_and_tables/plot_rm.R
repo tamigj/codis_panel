@@ -228,50 +228,6 @@ select_combinations = function(df_sum, selection_criteria){
 
 
 # Plotting 
-plot_rm_baseline = function(df_sum, title_txt){
-  
-  # Mark comparable combinations
-  comparable_conditions = (df_sum %>%
-                             filter(Strategy == 'Needle-in-haystack') %>%
-                             filter(median > 0.99))$n_total_snps
-  df_sum = df_sum %>%
-    mutate(comparable = ifelse(n_total_snps %in% comparable_conditions,
-                               "Comparable RM accuracies to all SNPs", 
-                               "Worse RM accuracies than all SNPs"))
-  
-  ## Plot 
-  p = ggplot(df_sum, aes(x=as.numeric(n_total_snps), y=median)) +
-    geom_hline(yintercept=1, linetype='dashed', color='grey') +
-    geom_pointrange(aes(ymin=min, ymax=max)) +
-    # Add group=1 to ensure the line connects all points regardless of fill
-    geom_line(aes(group=1)) +  
-    
-    geom_point(aes(fill=comparable), size=3, shape=21) +  
-    facet_wrap(~Strategy, nrow=4) +
-    theme_light() +
-    theme(axis.text = element_text(size=16),
-          axis.title = element_text(size=18),
-          axis.text.x = element_text(angle=60, hjust=1),
-          strip.text = element_text(size=18, color='White'),
-          strip.background = element_rect(fill = "black"),
-          plot.title = element_text(size=22, face='bold'),
-          legend.position = 'none',
-          legend.text = element_text(size=18),
-          legend.title = element_blank()) + 
-    
-    scale_x_log10(labels = scales::comma_format(), 
-                  breaks = df_sum$n_total_snps) +
-    
-    scale_fill_manual(values = c('black', 'white')) +
-    
-    ylim(c(0,1)) +
-    xlab("SNP panel size") +
-    ylab("Record-matching accuracy\n")
-  
-  plot(p)
-  
-}
-
 plot_rm_baseline_horizontal = function(df_sum, title_txt){
   
   # Mark comparable combinations
@@ -286,7 +242,7 @@ plot_rm_baseline_horizontal = function(df_sum, title_txt){
   ## Plot 
   p = ggplot(df_sum, aes(x=as.numeric(n_total_snps), y=median)) +
     geom_hline(yintercept=1, linetype='dashed', color='grey') +
-    geom_pointrange(aes(ymin=min, ymax=max)) +
+    geom_errorbar(aes(ymin=min, ymax=max), width=0.1) +
     # Add group=1 to ensure the line connects all points regardless of fill
     geom_line(aes(group=1)) +  
     
@@ -390,7 +346,7 @@ plot_rm = function(df_sum, title_txt, filter_txt){
       geom_errorbar(data = df_sum, 
                     aes(x = as.numeric(n_total_snps), 
                         ymin = min, ymax = max,
-                        color = filter), width=0) +
+                        color = filter), width=50) +
       
       geom_point(data = df_worse,
                  aes(x=n_total_snps, y=median,
@@ -448,10 +404,10 @@ plot_rm = function(df_sum, title_txt, filter_txt){
       geom_line(data = df_sum, 
                       aes(x = as.numeric(n_total_snps), y = median)) +
         
-      geom_pointrange(data = df_sum,
-                      aes(x = as.numeric(n_total_snps), y = median,
-                          ymin = min, ymax = max)) +
-      
+      geom_errorbar(data = df_sum,
+                    aes(x = as.numeric(n_total_snps), y = median,
+                        ymin = min, ymax = max), width=50) +
+
       geom_point(data = df_sum,
                  aes(x = as.numeric(n_total_snps), y = median),
                  size = 4, fill = "white", shape = 21) +
@@ -566,7 +522,7 @@ plot_rm_combos = function(df_sum, filter_txt){
     geom_errorbar(data = df_sum, 
                   aes(x = as.numeric(n_total_snps), 
                       ymin = min, ymax = max,
-                      color = distance), width=0) +
+                      color = distance), width=50) +
     
     # Add white-filled points for "Worse" data
     geom_point(data = df_worse,
@@ -606,298 +562,6 @@ plot_rm_combos = function(df_sum, filter_txt){
            color = guide_legend(title = filter_txt))
   
   plot(p)
-}
-
-plot_rm_combos_supplement_old = function(df_sum){
-  
-  combinations = c("Distance 0.0625Mb, D'avg 0.3", "Distance 0.0625Mb, D'avg 0.5",
-                   "Distance 0.0625Mb, D'avg 0.7",
-                   "Distance 0.125Mb, D'avg 0.3", "Distance 0.125Mb, D'avg 0.5" ,
-                   "Distance 0.125Mb, D'avg 0.7",
-                   "Distance 0.25Mb, D'avg 0.3", "Distance 0.25Mb, D'avg 0.5", 
-                   "Distance 0.25Mb, D'avg 0.7",
-                   
-                   "MAF 1%, D'avg 0.3", "MAF 1%, D'avg 0.5",
-                   
-                   "MAF 1%, Distance 0.0625Mb, D'avg 0.3",
-                   "MAF 1%, Distance 0.125Mb, D'avg 0.3",
-                   "MAF 1%, Distance 0.25Mb, D'avg 0.3",
-                   
-                   "MAF 1%, Distance 0.125Mb, D'avg 0.5", 
-                   "MAF 1%, Distance 0.25Mb, D'avg 0.5")
-  
-  # PRE-PROCESSING ----------------------------------------------
-  
-  # Create Segment variable
-  df_sum = df_sum %>%
-    mutate(Segment = NA) %>%
-    mutate(Segment = ifelse(filter %in% combinations[1:3],
-                            'Dist≤0.0625Mb', Segment),
-           
-           Segment = ifelse(filter %in% combinations[4:6],
-                            'Dist≤0.125Mb', Segment),
-           
-           Segment = ifelse(filter %in% combinations[7:9],
-                            'Dist≤0.25Mb', Segment),
-           
-           Segment = ifelse(filter %in% combinations[10:11],
-                            "MAF and D'avg", Segment),
-           
-           Segment = ifelse(filter %in% combinations[12:14],
-                            "D'avg≥0.3", Segment),
-           
-           Segment = ifelse(filter %in% combinations[15:16],
-                            "D'avg≥0.5", Segment))
-  
-  df_sum$Segment = factor(df_sum$Segment,
-                          levels = c('Dist≤0.0625Mb',
-                                     'Dist≤0.125Mb',
-                                     'Dist≤0.25Mb',
-                                     "MAF and D'avg",
-                                     "D'avg≥0.3",
-                                     "D'avg≥0.5"))
-  
-  # Add D'avg filter
-  df_sum = df_sum %>%
-    mutate(d = NA) %>%
-    
-    mutate(d = ifelse(grepl("D'avg 0.3", filter),
-                      '≥0.3', d),
-           
-           d = ifelse(grepl("D'avg 0.5", filter),
-                      '≥0.5', d),
-           
-           d = ifelse(grepl("D'avg 0.7", filter),
-                      '≥0.7', d)) %>%
-    
-    mutate(d = factor(d))
-  
-  # Add distance filter 
-  df_sum = df_sum %>%
-    
-    mutate(distance = NA) %>%
-    
-    mutate(distance = ifelse(grepl("0\\.0625Mb", filter),
-                             '≤0.0625Mb', distance),
-           
-           distance = ifelse(grepl("0\\.125Mb", filter) & !grepl("0\\.0625", filter),
-                             '≤0.125Mb', distance),
-           
-           distance = ifelse(grepl("0\\.25Mb", filter) & !grepl("0\\.125", filter) & !grepl("0\\.0625", filter),
-                             '≤0.25Mb', distance)) %>%
-    
-    mutate(distance = factor(distance, 
-                             levels = c('≤0.25Mb', '≤0.125Mb', '≤0.0625Mb')))
-  
-  # COMPARABLE COMBINATIONS ------------------------------------
-  df_sum = df_sum %>%
-    mutate(candidate = ifelse(Strategy == "One-to-one" & median == 1 |
-                                Strategy == "SNP query" & median == 1 |
-                                Strategy == 'STR query' & median == 1 |
-                                Strategy == 'Needle-in-haystack' & median > 0.99,
-                              1, 0)) %>%
-    group_by(n_total_snps, filter) %>%
-    mutate(n = sum(candidate))  %>%
-    mutate(comparable = ifelse(n == 4,
-                               "Comparable RM accuracies to all SNPs", 
-                               "Worse RM accuracies than all SNPs"), 
-           comparable = factor(comparable,
-                               levels = c("Worse RM accuracies than all SNPs",
-                                          "Comparable RM accuracies to all SNPs")))
-  
-  # Create datasets for plotting
-  df_dist <- df_sum %>% filter(grepl("Dist", Segment))
-  df_dist_comparable <- df_dist %>% 
-    mutate(median = ifelse(comparable == "Comparable RM accuracies to all SNPs",
-                           median, 5))
-  df_dist_worse <- df_dist %>% 
-    filter(comparable == "Worse RM accuracies than all SNPs")
-  
-  df_maf <- df_sum %>% filter(Segment == "MAF and D'avg")
-  df_maf_comparable <- df_maf %>%
-    mutate(median = ifelse(comparable == "Comparable RM accuracies to all SNPs",
-                           median, 5))
-  df_maf_worse <- df_maf %>%
-    filter(comparable == "Worse RM accuracies than all SNPs")
-  
-  df_combo <- df_sum %>% filter(grepl("avg≥", Segment))
-  df_combo_comparable <- df_combo %>%
-    mutate(median = ifelse(comparable == "Comparable RM accuracies to all SNPs",
-                           median, 5))
-  df_combo_worse <- df_combo %>%
-    filter(comparable == "Worse RM accuracies than all SNPs")
-  
-  # PLOTS ------------------------------------------------------
-  
-  # For panel B, use first and third colors from cont_palette_3
-  maf_colors <- c(cont_palette_3[1], cont_palette_3[3])
-  names(maf_colors) <- unique(df_maf$filter)
-  
-  ## Plot (part 1) - MAF and D'avg (Now A)
-  pA = ggplot() +
-    geom_hline(yintercept=1, linetype='dashed', color='grey') +
-    facet_wrap(~Strategy, nrow=1) +
-    
-    # Add lines (all data)
-    geom_line(data = df_maf, 
-              aes(x = as.numeric(n_total_snps), y = median, 
-                  color = filter, group = filter)) +
-    
-    # Add error bars (all data)
-    geom_errorbar(data = df_maf, 
-                  aes(x = as.numeric(n_total_snps), 
-                      ymin = min, ymax = max,
-                      color = filter), width=0) +
-    
-    # Add white-filled points for "Worse" data
-    geom_point(data = df_maf_worse,
-               aes(x=n_total_snps, y=median,
-                   shape=filter, color=filter), fill='white', size=4) +
-    
-    # Add colored-filled points for "Comparable" data
-    geom_point(data = df_maf_comparable,
-               aes(x=n_total_snps, y=median,
-                   shape=filter, color=filter, fill=filter), size=4) +
-    
-    # Set scales
-    scale_shape_manual(values = c(25, 22)) + 
-    scale_color_manual(
-      values = maf_colors,
-      labels = c(
-        "MAF 1%, D'avg 0.3" = expression(paste("MAF≥1%, ", D*"'"["avg"], "≥0.3")),
-        "MAF 1%, D'avg 0.5" = expression(paste("MAF≥1%, ", D*"'"["avg"], "≥0.5"))
-      )
-    ) +
-    scale_fill_manual(values = maf_colors, guide = "none") +
-    
-    theme_light() +
-    theme(axis.text = element_text(size=16),
-          axis.title = element_text(size=18, face='plain'),
-          axis.text.x = element_text(angle=60, hjust=1),
-          strip.text = element_text(size=18, color='White'),
-          strip.background = element_rect(fill = "black"),
-          plot.title = element_text(size=22, face='bold'),
-          legend.position = 'bottom',
-          legend.text = element_text(size=16),
-          legend.title = element_blank(),
-          panel.spacing = unit(1, "lines")) +
-    scale_x_continuous(breaks = unique(df_maf$n_total_snps)) + 
-    ylim(c(0,1)) +
-    xlab("SNP panel size") +
-    ylab("\nRecord-matching\naccuracy") +
-    ggtitle(expression(bold(paste("MAF and ", D*"'"[avg])))) +
-    guides(fill = "none", 
-           shape = "none",
-           color = guide_legend(override.aes = list(shape = c(25, 22))))
-  
-  ## Plot (part 2) - Distance and D'avg (Now B)
-  pB = ggplot() +
-    geom_hline(yintercept=1, linetype='dashed', color='grey') +
-    facet_grid(Segment~Strategy) +
-    
-    # Add lines (all data)
-    geom_line(data = df_dist, 
-              aes(x = as.numeric(n_total_snps), y = median, 
-                  color = d, group = d)) +
-    
-    # Add error bars (all data)
-    geom_errorbar(data = df_dist, 
-                  aes(x = as.numeric(n_total_snps), 
-                      ymin = min, ymax = max,
-                      color = d), width=0) +
-    
-    # Add white-filled points for "Worse" data
-    geom_point(data = df_dist_worse,
-               aes(x=n_total_snps, y=median,
-                   shape=d, color=d), fill='white', size=4) +
-    
-    # Add colored-filled points for "Comparable" data
-    geom_point(data = df_dist_comparable,
-               aes(x=n_total_snps, y=median,
-                   shape=d, color=d, fill=d), size=4) +
-    
-    # Set scales with all three colors
-    scale_shape_manual(values = c(25, 22, 24)) + 
-    scale_fill_manual(values = cont_palette_3, guide = "none") +
-    scale_color_manual(values = cont_palette_3) +
-    
-    theme_light() +
-    theme(axis.text = element_text(size=16),
-          axis.title = element_text(size=18, face='plain'),
-          axis.text.x = element_text(angle=60, hjust=1),
-          strip.text = element_text(size=18, color='White'),
-          strip.background = element_rect(fill = "black"),
-          plot.title = element_text(size=22, face='bold'),
-          legend.position = 'bottom',
-          legend.text = element_text(size=16),
-          legend.title = element_text(size=16),
-          panel.spacing = unit(1, "lines")) +
-    scale_x_continuous(breaks = unique(df_dist$n_total_snps)) + 
-    ylim(c(0,1)) +
-    xlab("SNP panel size") +
-    ylab("\nRecord-matching accuracy\n") +
-    ggtitle(expression(bold(paste("Distance and ", D*"'"[avg])))) +
-    guides(fill = "none", 
-           shape = "none",
-           color = guide_legend(title = expression(D*"'"[avg]), override.aes = list(shape = c(25, 22, 24))))
-  
-  ## Plot (part 3) - MAF≥1%, distance and D'avg
-  pC = ggplot() +
-    geom_hline(yintercept=1, linetype='dashed', color='grey') +
-    facet_grid(Segment~Strategy) +
-    
-    # Add lines (all data)
-    geom_line(data = df_combo, 
-              aes(x = as.numeric(n_total_snps), y = median, 
-                  color = distance, group = distance)) +
-    
-    # Add error bars (all data)
-    geom_errorbar(data = df_combo, 
-                  aes(x = as.numeric(n_total_snps), 
-                      ymin = min, ymax = max,
-                      color = distance), width=0) +
-    
-    # Add white-filled points for "Worse" data
-    geom_point(data = df_combo_worse,
-               aes(x=n_total_snps, y=median,
-                   shape=distance, color=distance), fill='white', size=4) +
-    
-    # Add colored-filled points for "Comparable" data
-    geom_point(data = df_combo_comparable,
-               aes(x=n_total_snps, y=median,
-                   shape=distance, color=distance, fill=distance), size=4) +
-    
-    # Set scales
-    scale_shape_manual(values = c(25, 22, 24)) + 
-    scale_fill_manual(values = cont_palette_3, guide = "none") +
-    scale_color_manual(values = cont_palette_3) +
-    
-    theme_light() +
-    theme(axis.text = element_text(size=16),
-          axis.title = element_text(size=18, face='plain'),
-          axis.text.x = element_text(angle=60, hjust=1),
-          strip.text = element_text(size=18, color='White'),
-          strip.background = element_rect(fill = "black"),
-          plot.title = element_text(size=22, face='bold'),
-          legend.position = 'bottom',
-          legend.text = element_text(size=16),
-          legend.title = element_text(size=16),
-          panel.spacing = unit(1, "lines")) +
-    scale_x_continuous(breaks = unique(df_combo$n_total_snps)) + 
-    ylim(c(0,1)) +
-    xlab("SNP panel size") +
-    ylab("\nRecord-matching accuracy\n") +
-    ggtitle(expression(bold(paste("MAF≥1%, distance, and ", D*"'"[avg])))) +
-    guides(fill = "none", 
-           shape = "none",
-           color = guide_legend(title = "Distance", override.aes = list(shape = c(25, 22, 24))))
-  
-  return(plot_grid(pA, pB, pC, 
-                   labels = c("A", "B", "C"), 
-                   ncol = 1, 
-                   rel_heights = c(0.22, 0.47, 0.33),
-                   label_size = 24,          
-                   label_fontface = "bold"))
 }
 
 plot_rm_combos_supplement = function(df_sum){
@@ -1061,7 +725,7 @@ plot_rm_combos_supplement = function(df_sum){
     geom_errorbar(data = df_maf, 
                   aes(x = as.numeric(n_total_snps), 
                       ymin = min, ymax = max,
-                      color = filter), width=0) +
+                      color = filter), width=50) +
     
     # Add white-filled points for "Worse" data
     geom_point(data = df_maf_worse,
@@ -1120,7 +784,7 @@ plot_rm_combos_supplement = function(df_sum){
     geom_errorbar(data = df_dist, 
                   aes(x = as.numeric(n_total_snps), 
                       ymin = min, ymax = max,
-                      color = d), width=0) +
+                      color = d), width=50) +
     
     # Add white-filled points for "Worse" data
     geom_point(data = df_dist_worse,
@@ -1175,7 +839,7 @@ plot_rm_combos_supplement = function(df_sum){
     geom_errorbar(data = df_combo, 
                   aes(x = as.numeric(n_total_snps), 
                       ymin = min, ymax = max,
-                      color = distance), width=0) +
+                      color = distance), width=0.1) +
     
     # Add white-filled points for "Worse" data
     geom_point(data = df_combo_worse,
