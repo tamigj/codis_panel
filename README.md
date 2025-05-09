@@ -8,7 +8,7 @@ This repository contains all the code necessary to replicate all analyses descri
 - Java version 8 - required by BEAGLE. 
 - [VCFtools](https://vcftools.github.io/)
 - [PLINK 1.9](https://www.cog-genomics.org/plink/)
-- RecordMatchin R [package](https://github.com/jk2236/RecordMatching)
+- RecordMatching R [package](https://github.com/jk2236/RecordMatching)
 
 ## Dataset
 
