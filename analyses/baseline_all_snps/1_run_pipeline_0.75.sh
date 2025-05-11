@@ -46,7 +46,7 @@ do
     cat <<EOT > $sbatch_script
 #!/bin/bash
 #SBATCH --job-name=rm_${n_run}
-#SBATCH --time=03:00:00
+#SBATCH --time=05:00:00
 #SBATCH --mem=2G
 #SBATCH --output=logs_${fraction}/rm_${n_run}.log
 #SBATCH --error=logs_${fraction}/rm_${n_run}.err
