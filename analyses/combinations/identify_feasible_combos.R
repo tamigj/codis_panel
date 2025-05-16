@@ -145,7 +145,7 @@ write.csv(summary_df,
           row.names=FALSE, quote=FALSE)
 
 write.csv(summary_total_snps_df,
-          str_interp('${dir_output_sumstats}/combinations_feasibility_TableS3.csv'),
+          str_interp('${dir_output_sumstats}/combinations_feasibility_TableS2.csv'),
           row.names=FALSE, quote=FALSE)
 
 write.csv(feasible_combos_100_df,

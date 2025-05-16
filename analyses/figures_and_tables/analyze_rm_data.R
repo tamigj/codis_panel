@@ -1018,7 +1018,7 @@ plot(p)
 dev.off()
   
 write.csv(df_sum_clean, 
-          str_interp('baseline_TableS4.csv'), 
+          str_interp('baseline_TableS3.csv'), 
           row.names=FALSE)
   
 report_min_panel(df_sum, fraction)
@@ -1082,7 +1082,7 @@ dev.off()
 df_sum_clean = make_clean_summary_table(df_sum, pivot_longer = TRUE)
   
 write.csv(df_sum_clean, 
-          str_interp('combinations_TableS7A.csv'), 
+          str_interp('combinations_TableS6A.csv'), 
           row.names=FALSE)
   
   
@@ -1097,5 +1097,5 @@ dev.off()
 df_sum_clean = make_clean_summary_table(df_sum, pivot_longer = TRUE)
   
 write.csv(df_sum_clean, 
-          str_interp('combinations_supplement_TableS7B.csv'), 
+          str_interp('combinations_supplement_TableS6B.csv'), 
           row.names=FALSE)

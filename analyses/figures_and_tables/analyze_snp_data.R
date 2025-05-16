@@ -116,4 +116,4 @@ summary_df$Characteristic = factor(summary_df$Characteristic,
                                               'Distance to STR',
                                               'Payseur D'))
 
-write.csv(summary_df, 'snps_remaining_after_filters_TableS5.csv', row.names=FALSE)
+write.csv(summary_df, 'snps_remaining_after_filters_TableS4.csv', row.names=FALSE)
