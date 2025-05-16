@@ -21,7 +21,7 @@ This repository contains all the code necessary to replicate all analyses descri
 
 ![CODIS Codebase Schematic](analyses/CODIS_codebase_schematic.png)
 
-## Reference
+## References
 
 (paper)
 
