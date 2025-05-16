@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------------
 If you are looking to replicate all analyses from our paper:
 
-  (1) Download all raw data and software from XXX
+  (1) Download all raw data and software
   (2) Clone out github directory
   (3) Run all analyses using the guide below
   (4) Run code to generate figures and tables
@@ -93,7 +93,10 @@ ANALYSES:
     /maf                    run RM for SNP panels with MAF filter & summarize results
     /popmaf                 run RM for SNP panels with pop-MAF filter & summarize results
     /distance               run RM for SNP panels with distance filter & summarize results
-    /payseur_d              run RM for SNP panels with D'avg filter & summarize results
+    /d_prime_avg            run RM for SNP panels with D'avg filter & summarize results
+
+    /figures_and_tables     process all output files to produce all figures and tables
+                            (main and supplementary) from this paper
 
     ---------------------------------------------------------------------------------------
     | The code within each analysis category (baseline_all_snps to payseur_d)             |
@@ -105,5 +108,5 @@ ANALYSES:
     |   - 3a_rerun_unfinished_jobs.sh     check which jobs did not complete, and rerun    |
     ---------------------------------------------------------------------------------------
 
---------------------------------------------------------------------------------------------
-(4)
+    See schematic on the main page for a visual representation of the code base.
+
