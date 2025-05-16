@@ -891,8 +891,8 @@ plot_rm_combos_supplement = function(df_sum){
 plot_payseur_ld = function(df){
   
   df = df %>%
-    filter(R2 > 0.1) %>%
-    group_by(payseur_d, n_snps, snp_id) %>%
+    #filter(R2 > 0.1) %>%
+    group_by(payseur_d, n_snps, snp_id, STR) %>%
     mutate(mean_R2 = mean(R2)) %>%
     select(payseur_d, n_snps, snp_id, mean_R2) %>%
     mutate(n_snps = factor(n_snps, levels=c(25, 50, 75, 100)),
@@ -915,6 +915,53 @@ plot_payseur_ld = function(df){
   
   return(p)
   
+}
+
+
+# Counting variants post-filtering
+count_maf = function(df, t){
+  
+  tmp = df %>%
+    filter(MAF >= t)
+  
+  return(nrow(tmp))
+}
+
+count_popmaf = function(df, t){
+  
+  if (t == 0){
+    tmp = df %>%
+      filter(AFR_MAF > t,
+             AMR_MAF > t,
+             EAS_MAF > t,
+             EUR_MAF > t,
+             SAS_MAF > t)
+  } else {
+    tmp = df %>%
+      filter(AFR_MAF >= t,
+             AMR_MAF >= t,
+             EAS_MAF >= t,
+             EUR_MAF >= t,
+             SAS_MAF >= t)
+  }
+  
+  return(nrow(tmp))
+}
+
+count_distance = function(df, t){
+  
+  tmp = df %>%
+    filter(abs(dist_to_STR) <= t)
+  
+  return(nrow(tmp))
+}
+
+count_payseur_d = function(df, t){
+  
+  tmp = df %>%
+    filter(Payseur_d >= t)
+  
+  return(nrow(tmp))
 }
 
 
@@ -966,12 +1013,12 @@ df_sum_clean = make_clean_summary_table(df_sum,
   
 p = plot_rm_baseline_horizontal(df_sum, 'Baseline: Random selection of SNPs')
 
-png(str_interp('baseline_${fraction}_horizontal.png'), width=1000, height=250)
+png(str_interp('baseline_Figure1.png'), width=1000, height=250)
 plot(p)
 dev.off()
   
 write.csv(df_sum_clean, 
-          str_interp('baseline_${fraction}.csv'), 
+          str_interp('baseline_TableS4.csv'), 
           row.names=FALSE)
   
 report_min_panel(df_sum, fraction)
@@ -1002,7 +1049,7 @@ pE = plot_rm(df_sum4, 'D_avg', 'D_avg')
 report_min_panel(df_sum4, fraction)
   
 # Save plots
-png(str_interp('variant_characteristics_all_${fraction}.png'), 
+png(str_interp('variant_characteristics_Figure2.png'), 
     width=950, height=1300)
 plot_grid(NULL, pA, NULL, pB, pC, pD, pE, 
           labels = c("", "A", "", "B", "C", "D", "E"), 
@@ -1019,7 +1066,7 @@ df_sum_clean = make_clean_summary_table(rbind(df_sum %>% mutate(filter=NA),
                                         pivot_longer = TRUE)
   
 write.csv(df_sum_clean, 
-          str_interp('variant_characteristics_${fraction}.csv'), 
+          str_interp('variant_characteristics_TableS5.csv'), 
           row.names=FALSE)
   
   
@@ -1027,22 +1074,22 @@ write.csv(df_sum_clean,
 df_sum_all = make_summary_table(main_df, 'combinations', fraction)
 df_sum = select_combinations(df_sum_all, 'main_figure')
 
-png(str_interp("combinations_all_${fraction}.png"), 
+png(str_interp("combinations_Figure3.png"), 
     width=1000, height=1000)
-pA = plot_rm_combos(df_sum, 'Distance to CODIS STR (in bp)')
+plot_rm_combos(df_sum, 'Distance to CODIS STR (in bp)')
 dev.off()
   
 df_sum_clean = make_clean_summary_table(df_sum, pivot_longer = TRUE)
   
 write.csv(df_sum_clean, 
-          str_interp('combinations_main_${fraction}.csv'), 
+          str_interp('combinations_TableS7A.csv'), 
           row.names=FALSE)
   
   
 # 4. COMBINATIONS (supplementary) ----------------------------------------------
 df_sum = select_combinations(df_sum_all, 'supplementary')
   
-png(str_interp("combinations_supplement_${fraction}.png"), 
+png(str_interp("combinations_supplement_FigureS2.png"), 
     width=1000, height=1300)
 plot_rm_combos_supplement(df_sum)
 dev.off()
@@ -1050,14 +1097,5 @@ dev.off()
 df_sum_clean = make_clean_summary_table(df_sum, pivot_longer = TRUE)
   
 write.csv(df_sum_clean, 
-          str_interp('combinations_supplement_${fraction}.csv'), 
+          str_interp('combinations_supplement_TableS7B.csv'), 
           row.names=FALSE)
-
-
-# 5. LD among D'avg SNP sets (supplementary) -----------------------------------
-df = read.csv(str_interp(
-  '~/Desktop/codis_panel/rm_summaries/${fraction}/payseur_ld_summary.csv'))
-
-png("Figure_S3.png", width=700, height=350)
-plot_payseur_ld(df)
-dev.off()
