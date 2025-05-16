@@ -39,9 +39,9 @@ for (codis_str in codis_strs){
   names(str_list_df) = c('id')
 
   ## Record number of SNPs
-  n_before = nrow(df)
+  n_before = nrow(df)-1
   n_strs = nrow(str_list_df)
-  n_after = n_before-n_strs
+  n_after = n_before-n_strs-1
 
   print(str_interp(
     "There are ${n_strs} multi-allelic variants around ${codis_str}."))
@@ -55,5 +55,5 @@ for (codis_str in codis_strs){
 }
 
 # Save a file for reference
-write.csv(res_df, str_interp("${dir_output_sumstats}/n_STRs_around_CODIS_STRs.csv"),
+write.csv(res_df, str_interp("${dir_output_sumstats}/n_snps_around_STRs_TableS1.csv"),
           row.names=FALSE)

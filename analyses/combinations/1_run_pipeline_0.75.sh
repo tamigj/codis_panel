@@ -19,8 +19,9 @@ n_snp_reps=10
 n_ind_reps=10
 fraction=0.75
 
-start_line=4
-end_line=4
+# Skip 18-26 because pop-MAF were reran recently 
+start_line=27
+end_line=27	
 ###############################################################
 
 ml R/4.2
@@ -28,7 +29,7 @@ ml R/4.2
 mkdir -p logs_${fraction}
 mkdir -p submit_${fraction}
 
-combos_file="$DIR_OUTPUT_SUMSTATS/feasible_combinations_100_pop_maf.csv"
+combos_file="$DIR_OUTPUT_SUMSTATS/feasible_combinations_100.csv"
 
 if [ ! -f "$combos_file" ]; then
     Rscript identify_feasible_combos.R
@@ -40,7 +41,7 @@ while IFS=, read -r maf popmaf distance d; do
     # Increment line counter
     line_counter=$((line_counter + 1))
 
-    # Process only the first three lines
+    # Process only the specified lines
     if [ "$line_counter" -ge $start_line ] && [ "$line_counter" -le $end_line ]; then
 
     for n_snps in $n_snps_per_str;
