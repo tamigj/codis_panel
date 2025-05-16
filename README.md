@@ -17,7 +17,9 @@ This repository contains all the code necessary to replicate all analyses descri
 
 ## Code description
 
-- The full description of the code, inluding the input, output, and description of each script can be found [here](https://github.com/tamigj/codis_panel/blob/main/README_CODE_DESCRIPTION)
+- The full description of the code, inluding the input, output, and description of each script can be found [here](https://github.com/tamigj/codis_panel/blob/main/README_CODE_DESCRIPTION). Below is a schematic representation of the entire code base.
+
+![CODIS Codebase Schematic](analyses/CODIS_codebase_schematic.png)
 
 ## Reference
 
