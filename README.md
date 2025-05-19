@@ -1,4 +1,5 @@
-# Minimal SNP sets for record-matching with CODIS STR profiles
+# Toward minimal SNP sets for record-matching with CODIS STR profiles
+
 
 This repository contains all the code necessary to replicate all analyses described in paper [LINK]. Below, we describe the key dependencies, raw data and relevant references.
 
