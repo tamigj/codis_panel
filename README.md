@@ -13,7 +13,7 @@ This repository contains all the code necessary to replicate all analyses descri
 
 ## Dataset
 
-- A phased reference SNP-STR haplotype panel from [Saini et al.](https://www.nature.com/articles/s41467-018-06694-0) from the 1000 Genomes Project phase 3 containing 2504 individuals can be downloaded from [here](https://gymreklab.com/2018/03/05/snpstr_imputation.html). Processed data containing 1-Mb SNP windows extending 500-Kb in each direction from each CODIS STR midpoint can be found [here](https://github.com/jk2236/RM_WGS/tree/main/data/1KGP).
+- A phased reference SNP-STR haplotype panel from [Saini et al.](https://www.nature.com/articles/s41467-018-06694-0) from the 1000 Genomes Project phase 3 containing 2504 individuals can be downloaded from [here](https://gymreklab.com/2018/03/05/snpstr_imputation.html). Processed data containing 1-Mb SNP windows extending 500-Kb in each direction from each CODIS STR midpoint can be found [here](https://github.com/jk2236/RM_WGS/tree/main/data/1KGP). The latter is the raw data used as a starting point of our analyses. 
 - HapMap GrCh37 genetic maps in PLINK format can be downloaded from the [BEAGLE page](https://example.com/beagle-page).
 
 ## Code description
@@ -24,7 +24,7 @@ This repository contains all the code necessary to replicate all analyses descri
 
 ## References
 
-(paper)
+(our paper, when published)
 
 Kim J, Rosenberg NA (2022). Record-matching of STR profiles with fragmentary genomic SNP data. bioRxiv, 2022.09.01.505545. 10.1101/2022.09.01.505545.
 
