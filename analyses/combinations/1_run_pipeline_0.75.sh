@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name=submit_jobs_0.75
-#SBATCH --time=08:00:00
+#SBATCH --time=03:00:00
 #SBATCH --mem=1G
 #SBATCH --output=logs_0.75/submit_jobs_0.75.log
 #SBATCH --error=logs_0.75/submit_jobs_0.75.err
@@ -20,8 +20,8 @@ n_ind_reps=10
 fraction=0.75
 
 # Skip 18-26 because pop-MAF were reran recently 
-start_line=27
-end_line=27	
+start_line=35
+end_line=35		
 ###############################################################
 
 ml R/4.2

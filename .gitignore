@@ -14,5 +14,6 @@ software/
 *.log
 *.err
 *.pdf
+*.vcf
 submit_*.sh
 
