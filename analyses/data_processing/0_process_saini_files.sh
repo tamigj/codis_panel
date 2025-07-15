@@ -12,13 +12,16 @@ source /scratch/groups/noahr/tami/codis_panel/config.sh
 
 cd ${DIR_DATA_RAW}
 
-CHROMOSOMES=($(seq 1 22) X)
+# Identify chromosomes that have CODIS STRs
+CHROMOSOMES=($(tail -n +2 marker_positions.txt | cut -d' ' -f2 | sort -n | uniq))
 
 for CHR in "${CHROMOSOMES[@]}"; do
 
     # Download and unzip VCF file
-    wget "https://s3.amazonaws.com/snp-str-imputation/1000genomes/1kg.snp.str.chr${CHR}.vcf.gz"
-    gunzip "1kg.snp.str.chr${CHR}.vcf.gz"
+    if [[ ! -f "1kg.snp.str.chr${CHR}.vcf" ]]; then
+      wget "https://s3.amazonaws.com/snp-str-imputation/1000genomes/1kg.snp.str.chr${CHR}.vcf.gz"
+      gunzip "1kg.snp.str.chr${CHR}.vcf.gz"
+    fi
 
     # Process each STR on this chromosome
     while read -r str chr pos; do
@@ -37,6 +40,7 @@ for CHR in "${CHROMOSOMES[@]}"; do
 
         # Rename output file to drop recode
         mv "${str}_halfwindow500000WithSTR.recode.vcf" "${str}_halfwindow500000WithSTR.vcf"
+        
       fi
   done < <(tail -n +2 marker_positions.txt)
 done

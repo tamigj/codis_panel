@@ -1,1 +1,7 @@
 *.vcf.gz filter=lfs diff=lfs merge=lfs -text
+software/**/*.jar filter=lfs diff=lfs merge=lfs -text
+software/**/plink filter=lfs diff=lfs merge=lfs -text
+software/**/*.exe filter=lfs diff=lfs merge=lfs -text
+software/**/*.so filter=lfs diff=lfs merge=lfs -text
+software/**/*.dylib filter=lfs diff=lfs merge=lfs -text
+software/**/*.a filter=lfs diff=lfs merge=lfs -text

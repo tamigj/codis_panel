@@ -1,0 +1,28 @@
+PLINK v1.90b7 64-bit (16 Jan 2023)
+Options in effect:
+  --maf 0.05
+  --show-tags all
+  --tag-r2 0.85
+  --vcf ../../data/raw/vWA_halfwindow500000WithSTR.vcf
+
+Hostname: sh02-04n68.int
+Working directory: /scratch/groups/noahr/tami/codis_snps/software/plink_linux
+Start time: Mon May 22 15:12:56 2023
+
+Random number seed: 1684793576
+128675 MB RAM detected; reserving 64337 MB for main workspace.
+--vcf: plink-temporary.bed + plink-temporary.bim + plink-temporary.fam written.
+11371 variants loaded from .bim file.
+2504 people (0 males, 0 females, 2504 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to plink.nosex .
+Using 1 thread.
+Before main variant filters, 2504 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.994013.
+8301 variants removed due to minor allele threshold(s)
+(--maf/--max-maf/--mac/--max-mac).
+3070 variants and 2504 people pass filters and QC.
+Note: No phenotypes present.
+--show-tags all: Report written to plink.tags.list .
+
+End time: Mon May 22 15:12:57 2023
