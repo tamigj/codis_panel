@@ -38,7 +38,7 @@ for snplist_id in "${!snplist_params[@]}"; do
     # Parse parameters for this snplist_id
     read -r maf popmaf distance d <<< "${snplist_params[$snplist_id]}"
 
-    for n_snps in $TOP_PANEL_SIZES_UP_TO_100;
+    for n_snps in $ALL_PANEL_SIZES_UP_TO_100;
     do
 
       for n_snp_rep in $(seq 1 $n_snp_reps);
