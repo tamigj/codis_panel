@@ -4,7 +4,7 @@
 This repository contains all the code necessary to replicate all analyses described in paper [LINK]. Below, we describe the key dependencies, raw data and relevant references.
 
 ## Dependencies
-All software required for this project are provided in this repository. These include:
+All software required for this project are provided in this repository under [software](https://github.com/tamigj/codis_panel/tree/main/software). These include:
 - BEAGLE 5.4, specifically [beagle.22Jul22.46e.jar](https://faculty.washington.edu/browning/beagle/)
 - Java version 8 - required by BEAGLE. 
 - [VCFtools](https://vcftools.github.io/)
