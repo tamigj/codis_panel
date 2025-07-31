@@ -18,8 +18,8 @@ All software required for this project are provided in this repository under [so
 
 ## Code description
 
-- Below is a schematic representation describing the overall structure of our code base. Each grey box corresponds to a directory under [/analysis/](https://github.com/tamigj/codis_panel/tree/main/analyses)
-- More detailed information about each script within different analyses is included in this [README]((https://github.com/tamigj/codis_panel/blob/main/README_CODE_DESCRIPTION).
+- Below is a schematic representation describing the overall structure of our code base. Each grey box corresponds to a directory under [/analyses](https://github.com/tamigj/codis_panel/tree/main/analyses).
+- More detailed information about scripts that make up each analysis is included in this [README](https://github.com/tamigj/codis_panel/blob/main/README_CODE_DESCRIPTION).
 
 ![CODIS Codebase Schematic](analyses/CODIS_codebase_schematic.png)
 
@@ -35,7 +35,7 @@ Edge MD, Algee-Hewitt BFB, Pemberton TJ, Li JA, Rosenberg NA (2017). Linkage dis
 
 ## Note: data in related manuscripts
 
-The phased haplotypes in this repository and accompanying publication trace to Saini et al. (2018); Kim & Rosenberg (2023) and Lappo & Rosenberg (2024) have also used phased haplotypes based on Saini et al (2018). Kim & Rosenberg (2023) used both phased data from Saini et al. (2018) and unphased data that they produced from the phased data, and they posted the unphased data in a github repository. Lappo & Rosenberg (2024) used the phased data from Kim & Rosenberg (2023) in their analysis and included the unphased data from Kim & Rosenberg (2023) for download in their electronic supplementary material. For clarity here, the code in this repository obtains phased haplotypes directly from Saini et al. (2018).
+The phased haplotypes in this repository and accompanying publication trace to Saini et al. (2018)[https://www.nature.com/articles/s41467-018-06694-0]; Kim & Rosenberg (2023)[https://www.nature.com/articles/s41431-023-01430-9] and Lappo & Rosenberg (2024)[https://www.sciencedirect.com/science/article/pii/S258900422400052X?via%3Dihub] have also used phased haplotypes based on Saini et al (2018). Kim & Rosenberg (2023) used both phased data from Saini et al. (2018) and unphased data that they produced from the phased data, and they posted the unphased data in a github repository. Lappo & Rosenberg (2024) used the phased data from Kim & Rosenberg (2023) in their analysis and included the unphased data from Kim & Rosenberg (2023) for download in their electronic supplementary material. For clarity here, the code in this repository obtains phased haplotypes directly from Saini et al. (2018).
 
 
 
