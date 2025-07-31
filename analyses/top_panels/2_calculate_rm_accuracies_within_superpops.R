@@ -253,4 +253,4 @@ setwd("/scratch/groups/noahr/tami/codis_panel/output/rm_summaries/0.75/")
 write.csv(main_results, "top_panels_by_populations_rm.csv",
           row.names=FALSE)
 
-write.csv(clean_results_df, "top_panels_by_populations_rm_summary_TableS7.csv")
+write.csv(clean_results_df, "top_panels_superpopulations_TableS7.csv")
