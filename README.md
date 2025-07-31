@@ -21,7 +21,7 @@ All software required for this project are provided in this repository under [so
 - Below is a schematic representation describing the overall structure of our code base. Each grey box corresponds to a directory under [/analyses](https://github.com/tamigj/codis_panel/tree/main/analyses).
 - More detailed information about scripts that make up each analysis is included in this [README](https://github.com/tamigj/codis_panel/blob/main/README_CODE_DESCRIPTION).
 
-![CODIS Codebase Schematic](analyses/CODIS_codebase_schematic.png)
+![CODIS Codebase Schematic](/analyses/CODIS_codebase_schematic_v2.png)
 
 ## References
 
