@@ -24,8 +24,8 @@ top_panels = c('combinations_0.05_NA_125000_NA',
 
 top_panels_txt = c("MAF≥5%,\nDistance≤0.125Mb",
                    "MAF≥10%,\nDistance≤0.125Mb",
-                   "Pop-MAF≥0%,\nDistance≤0.0625Mb",
-                   "Pop-MAF≥0%,\nDistance≤0.125Mb",
+                   "Pop-MAF>0%,\nDistance≤0.0625Mb",
+                   "Pop-MAF>0%,\nDistance≤0.125Mb",
                    "Pop-MAF≥1%,\nDistance≤0.0625Mb",
                    "Pop-MAF≥5%,\nDistance≤0.125Mb")
 
@@ -72,6 +72,8 @@ plot_rm_combos = function(df_sum, filter_txt){
   
   df_sum$combination =
     top_panels_df$text[match(df_sum$combination, top_panels_df$code)]
+  
+  df_sum$combination = factor(df_sum$combination, levels=top_panels_txt)
   
   df_sum = df_sum %>%
     rename(filter = 'combination') %>%
