@@ -9,7 +9,7 @@ software/
 **/logs_0.5/
 **/logs_0.75/
 **/archive/
-extra_analysis/
+extra_analysis
 **/regenerate_snp_lists/
 
 # Files to ignore
