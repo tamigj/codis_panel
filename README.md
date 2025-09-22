@@ -25,7 +25,7 @@ All software required for this project are provided in this repository under [so
 
 ## References
 
-(our paper, when published)
+Gjorgjieva, T., & Rosenberg, N.A. (2025). Toward minimal SNP sets for record-matching with CODIS STR profiles. European Journal of Human Genetics.
 
 Kim, J., & Rosenberg, N. A. (2023). Record-matching of STR profiles with fragmentary genomic SNP data. European Journal of Human Genetics, 31(11), 1283-1290.
 
